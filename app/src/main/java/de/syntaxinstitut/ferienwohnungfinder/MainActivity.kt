@@ -42,8 +42,10 @@ class MainActivity : AppCompatActivity() {
         // Größe bleibt für jedes Element gleich
         binding.rvAppartmentList.hasFixedSize()
 
-        // Weise den Adapter zu
-        binding.rvAppartmentList.adapter = AppartmentAdapter()
+        // Weise den Adapter zu wenn die Daten geladen sind
+        viewModel.appartmentsLiveData.observe(this){
+            binding.rvAppartmentList.adapter = AppartmentAdapter(it)
+        }
 
         // Lade die Appartments aus der Datenbank
         viewModel.loadFromDatabase()

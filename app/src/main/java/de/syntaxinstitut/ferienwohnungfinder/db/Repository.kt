@@ -32,12 +32,12 @@ class Repository(private val database: AppartmentDatabase) {
         /**
          * Lokale Funktion um ein Repository zu erstellen
          *
-         * @param shoppingListDatabase    Die Datenbank mit der das Repo verknüpft werden soll
+         * @param appartmentDatabase Die Datenbank mit der das Repo verknüpft werden soll
          *
          * @return Ein Repository
          */
-        private fun buildRepo(shoppingListDatabase: AppartmentDatabase): Repository =
-            Repository(shoppingListDatabase)
+        private fun buildRepo(appartmentDatabase: AppartmentDatabase): Repository =
+            Repository(appartmentDatabase)
     }
 
 
