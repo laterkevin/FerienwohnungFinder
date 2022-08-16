@@ -9,6 +9,8 @@ import androidx.room.PrimaryKey
 data class AppartmentData(
 //    todo: primary key
     @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
+
     var title: String,
     var address: String,
     var sleepRooms: Int,
@@ -16,7 +18,5 @@ data class AppartmentData(
     var persons: Int,
     var pricePerNight: Int,
     var image: Int,
-    var petsAllowed: Boolean,
-
-    var id: Int = 0
+    var petsAllowed: Boolean
 )

@@ -3,9 +3,13 @@ package de.syntaxinstitut.ferienwohnungfinder
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import de.syntaxinstitut.ferienwohnungfinder.data.dataclasses.AppartmentData
+import de.syntaxinstitut.ferienwohnungfinder.db.AppartmentDatabase
+import de.syntaxinstitut.ferienwohnungfinder.db.AppartmentDatabase.Companion.getDatabase
 import de.syntaxinstitut.ferienwohnungfinder.db.Repository
-import de.syntaxinstitut.ferienwohnungfinder.db.getDatabase
+import kotlinx.coroutines.launch
+
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -23,22 +27,25 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val countOfAppartments = MutableLiveData(0)
 
     init {
-        // Lade die Beispieldaten in die Datenbank wenn diese leer ist
-        repository.prepopulateDB()
+        viewModelScope.launch {
+            // Lade die Beispieldaten in die Datenbank wenn diese leer ist
+            repository.prepopulateDB()
 
-        // Lade die Anzahl an Appartments in der DB
-        countOfAppartments.value = repository.getCount()
+            // Lade die Anzahl an Appartments in der DB
+            countOfAppartments.value = repository.getCount()
 
-        // Zeige eine Toast Nachricht für die Anzahl der Appartments
-        showToast.value = true
+            // Zeige eine Toast Nachricht für die Anzahl der Appartments
+            showToast.value = true
+        }
     }
 
     /**
      * Lädt the Daten von der Datenbank in appartmentsLiveData
      */
     fun loadFromDatabase() {
+        viewModelScope.launch {appartmentsLiveData.value = repository.getAllItems()}
         // Lade alle Daten aus der DB in die Variable
-        appartmentsLiveData.value = repository.getAllItems()
+
     }
 
     /**

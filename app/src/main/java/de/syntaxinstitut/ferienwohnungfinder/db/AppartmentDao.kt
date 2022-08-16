@@ -1,5 +1,6 @@
 package de.syntaxinstitut.ferienwohnungfinder.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import de.syntaxinstitut.ferienwohnungfinder.data.dataclasses.AppartmentData
 
@@ -17,6 +18,8 @@ interface AppartmentDao {
      * @param ItemData        Das Item das eingefügt werden soll
      */
     // todo: Schreibe eine Funktion mit der Daten in die Tabelle einfügt werden können
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertItem(appartment: AppartmentData)
 
     /* -------------------- Get Funktionen -------------------- */
 
@@ -26,6 +29,8 @@ interface AppartmentDao {
      * @return Alle Items der Tabelle listItem_table
      */
     // todo: Schreibe eine Funktion mit der alle Datensätze aus die Tabelle geholt werden können
+    @Query("SELECT * FROM appartment_table")
+    suspend fun getAllItems(): List<AppartmentData>
 
     /**
      * Methode um sich die Anzahl der Elemente der appartment_table auszugeben
@@ -33,6 +38,8 @@ interface AppartmentDao {
      * @return Anzahl der Datensätze
      */
 	// todo: Schreibe eine Funktion welche die Anzahl der Datensätze zurückgibt
+    @Query("SELECT Count(*) FROM appartment_table")
+    suspend fun getCount(): Int
 
 
     /* -------------------- Update Funktionen -------------------- */
@@ -43,7 +50,7 @@ interface AppartmentDao {
      * @param itemData        Das zu aktualisierende Item mit seinen neuen Daten
      */
     @Update
-    fun updateItem(itemData: AppartmentData)
+    suspend fun updateItem(itemData: AppartmentData)
 
 
     /* -------------------- Löschen Funktionen -------------------- */
@@ -54,5 +61,5 @@ interface AppartmentDao {
      * @param ItemData        Das zu löschende Item
      */
     @Delete
-    fun deleteItem(ItemData: AppartmentData)
+    suspend fun deleteItem(ItemData: AppartmentData)
 }

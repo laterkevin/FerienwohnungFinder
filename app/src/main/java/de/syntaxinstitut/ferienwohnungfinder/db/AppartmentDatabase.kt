@@ -18,7 +18,8 @@ abstract class AppartmentDatabase : RoomDatabase() {
     /** Variable für das Interface aus der AppartmentDao */
     abstract val appartmentDao: AppartmentDao
 
-}
+    companion object {
+
 
         /** Speichert die Instance der AppartmentDatabase um mit dieser arbeiten zu können */
         private lateinit var INSTANCE: AppartmentDatabase
@@ -32,5 +33,20 @@ abstract class AppartmentDatabase : RoomDatabase() {
          */
         fun getDatabase(context: Context): AppartmentDatabase {
             // todo: Schreibe hier alles rein, damit das Programm von außerhalb eine Instanz der Datenbank erhält
-
+            synchronized(AppartmentDatabase::class.java) {
+                if (!::INSTANCE.isInitialized) {
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        AppartmentDatabase::class.java,
+                        "guest_database"
+                    )
+                        .build()
+                }
+            }
+            return INSTANCE
         }
+    }
+}
+
+
+

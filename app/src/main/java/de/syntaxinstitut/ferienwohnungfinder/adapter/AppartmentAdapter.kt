@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import de.syntaxinstitut.ferienwohnungfinder.data.dataclasses.AppartmentData
 import de.syntaxinstitut.ferienwohnungfinder.databinding.ListItemAppartmentBinding
 
-class AppartmentAdapter(private val items:List<AppartmentData>): RecyclerView.Adapter<AppartmentAdapter.MyViewHolder>() {
+class AppartmentAdapter(): RecyclerView.Adapter<AppartmentAdapter.MyViewHolder>() {
 
     /* -------------------- Klassen Variablen -------------------- */
 
     /** Innere Klasse um die Elemente im View zu erreichen */
     class MyViewHolder(val binding: ListItemAppartmentBinding) : RecyclerView.ViewHolder(binding.root)
+    var items: List<AppartmentData> = emptyList()
 
 
     /* -------------------- Lifecycle -------------------- */
@@ -72,6 +73,9 @@ class AppartmentAdapter(private val items:List<AppartmentData>): RecyclerView.Ad
     override fun getItemCount(): Int {
         return items.size
     }
-
+    fun update (list:List<AppartmentData>) {
+        items = list
+        notifyDataSetChanged()
+    }
 
 }
