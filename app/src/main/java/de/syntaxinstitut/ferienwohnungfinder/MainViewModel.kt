@@ -5,11 +5,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import de.syntaxinstitut.ferienwohnungfinder.data.dataclasses.AppartmentData
 import de.syntaxinstitut.ferienwohnungfinder.db.Repository
+import de.syntaxinstitut.ferienwohnungfinder.db.getDatabase
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /** Zugriff auf das Repository um mit der Datenbank arbeiten zu können */
-    private var repository = Repository.getInstance(application)
+    private val database = getDatabase(application)
+    private var repository = Repository(database)
 
     /** Liste aller Appartments die im RecyclerView abgebildet werden */
     val appartmentsLiveData = MutableLiveData<List<AppartmentData>>()

@@ -18,10 +18,10 @@ abstract class AppartmentDatabase : RoomDatabase() {
     /** Variable für das Interface aus der AppartmentDao */
     abstract val appartmentDao: AppartmentDao
 
-    companion object {
+}
+
         /** Speichert die Instance der AppartmentDatabase um mit dieser arbeiten zu können */
-        @Volatile
-        private var INSTANCE: AppartmentDatabase? = null
+        private lateinit var INSTANCE: AppartmentDatabase
 
         /**
          * Liefert die Instance der AppartmentDatabase zurück
@@ -30,9 +30,7 @@ abstract class AppartmentDatabase : RoomDatabase() {
          *
          * @return AppartmentDatabase Context
          */
-        fun getInstance(context: Context): AppartmentDatabase {
+        fun getDatabase(context: Context): AppartmentDatabase {
             // todo: Schreibe hier alles rein, damit das Programm von außerhalb eine Instanz der Datenbank erhält
 
         }
-    }
-}

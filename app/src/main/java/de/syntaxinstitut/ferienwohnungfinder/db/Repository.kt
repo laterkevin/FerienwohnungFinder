@@ -1,45 +1,6 @@
 package de.syntaxinstitut.ferienwohnungfinder.db
 
-import android.content.Context
-import android.util.Log
-import de.syntaxinstitut.ferienwohnungfinder.data.dataclasses.AppartmentData
-import de.syntaxinstitut.ferienwohnungfinder.data.exampleData.AppartmentsExampleData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-
 class Repository(private val database: AppartmentDatabase) {
-
-    /* -------------------- Objekte -------------------- */
-
-    /**
-     * Companion Object, welches innerhalb der Klasse definiert wird und Zugriff auf private Elemente der Klasse hat
-     */
-    companion object {
-        private var repository: Repository? = null
-
-        /**
-         * Funktion um eine Instanz des Repositories zu erhalten
-         *
-         * @param	context		Der Context des aufrufenden ViewModels
-         */
-        fun getInstance(context: Context): Repository =
-            repository ?: buildRepo(
-                AppartmentDatabase.getInstance(context.applicationContext)
-            ).also {
-                repository = it
-            }
-
-        /**
-         * Lokale Funktion um ein Repository zu erstellen
-         *
-         * @param appartmentDatabase Die Datenbank mit der das Repo verknüpft werden soll
-         *
-         * @return Ein Repository
-         */
-        private fun buildRepo(appartmentDatabase: AppartmentDatabase): Repository =
-            Repository(appartmentDatabase)
-    }
-
 
     /* -------------------- Öffentliche Funktionen -------------------- */
 

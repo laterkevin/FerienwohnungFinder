@@ -1,10 +1,8 @@
 package de.syntaxinstitut.ferienwohnungfinder.data.dataclasses
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-// todo: Lege hier den Tabellennamen fest
+// todo: Schreibe hier die Entity rein
 data class AppartmentData(
-    // todo: Schreibe hier die Entity rein
+//    todo: primary key
     var id: Int = 0
 )
